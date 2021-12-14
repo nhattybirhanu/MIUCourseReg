@@ -23,7 +23,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
 
         Optional<RegistrationGroup> registrationGroup = registrationGroupRepository.findById(groupId);
         registrationGroup.ifPresentOrElse(r->{
-            Optional<User> student = r.getStudent().stream().filter(s -> s.getId()==studentId).findAny();
+            Optional<Student> student = r.getStudent().stream().filter(s -> s.getId()==studentId).findAny();
             student.ifPresentOrElse(s->{
                 Optional<AcademicBlock> block = r.getBlocks().stream().filter(a->a.getId()==blockId).findAny();
                 block.ifPresentOrElse(a->{
@@ -82,7 +82,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
 
         Optional<RegistrationGroup> registrationGroup = registrationGroupRepository.findById(groupId);
         registrationGroup.ifPresentOrElse(r-> {
-            Optional<User> student = r.getStudent().stream().filter(s -> s.getId() == studentId).findAny();
+            Optional<Student> student = r.getStudent().stream().filter(s -> s.getId() == studentId).findAny();
             student.ifPresentOrElse(s -> {
                 r.removeStudent(groupId,studentId);
 

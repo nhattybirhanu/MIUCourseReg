@@ -19,7 +19,7 @@ public class Registration {
     private int id;
 
     @OneToOne
-    private User student;
+    private Student student;
 
     @OneToOne
     private CourseOffering courseOffering;

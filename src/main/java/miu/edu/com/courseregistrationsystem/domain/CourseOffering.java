@@ -29,7 +29,7 @@ public class CourseOffering {
     private Course course;
 
     @OneToMany
-    private List<User> faculity = new ArrayList<>();
+    private List<Student> faculity = new ArrayList<>();
 
 
     public void addStudent(User s) {

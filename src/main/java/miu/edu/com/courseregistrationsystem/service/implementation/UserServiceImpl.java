@@ -3,10 +3,12 @@ package miu.edu.com.courseregistrationsystem.service.implementation;
 import miu.edu.com.courseregistrationsystem.domain.Admin;
 import miu.edu.com.courseregistrationsystem.domain.Faculty;
 import miu.edu.com.courseregistrationsystem.domain.Student;
+import miu.edu.com.courseregistrationsystem.repository.AdminRepository;
+import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
+import miu.edu.com.courseregistrationsystem.repository.UserRepository;
 import miu.edu.com.courseregistrationsystem.service.AdminService;
 import miu.edu.com.courseregistrationsystem.service.FacultyService;
 import miu.edu.com.courseregistrationsystem.service.StudentService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +16,21 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements StudentService, FacultyService, AdminService {
-
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    AdminRepository adminRepository;
+    @Autowired
+    UserRepository userRepository;
     @Override
     public Admin save(Admin admin) {
-        return null;
+        return userRepository.save(admin);
     }
 
     @Override
     public Faculty save(Faculty faculty) {
-        return null;
+        return  userRepository.save(faculty);
+
     }
 
     @Override
@@ -32,7 +40,7 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
 
     @Override
     public Student save(Student student) {
-        return null;
+        return studentRepository.save(student);
     }
 
     @Override

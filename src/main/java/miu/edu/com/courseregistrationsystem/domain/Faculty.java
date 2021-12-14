@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Faculty extends User {

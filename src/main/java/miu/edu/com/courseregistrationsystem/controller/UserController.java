@@ -1,20 +1,16 @@
 package miu.edu.com.courseregistrationsystem.controller;
 
-import miu.edu.com.courseregistrationsystem.domain.Role;
-import miu.edu.com.courseregistrationsystem.domain.User;
+import miu.edu.com.courseregistrationsystem.domain.*;
 import miu.edu.com.courseregistrationsystem.dto.UserRegistrationDTO;
 import miu.edu.com.courseregistrationsystem.service.implementation.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/auth")
 public class UserController {
-
     @Autowired
     ModelMapper modelMapper;
     @Autowired
@@ -22,20 +18,25 @@ public class UserController {
     @PostMapping("/signup/student")
     public ResponseEntity<?> signupStudent(@RequestBody UserRegistrationDTO registrationDTO){
             registrationDTO.setRole(Role.STUDENT);
-
-        return ResponseEntity.ok(registrationDTO);
+            Student student=
+            userService.save((Student) convertToEntity(registrationDTO));
+        return ResponseEntity.ok(student);
     }
 
     @PostMapping("/signup/faculty")
-    public ResponseEntity<?> signupFaculty(UserRegistrationDTO registrationDTO){
-
-        return null;
+    public ResponseEntity<?> signupFaculty(@RequestBody UserRegistrationDTO registrationDTO){
+        registrationDTO.setRole(Role.FACULTY);
+        Faculty faculty=
+                userService.save((Faculty) convertToEntity(registrationDTO));
+        return ResponseEntity.ok(faculty);
     }
 
     @PostMapping("/signup/admin")
-    public ResponseEntity<?> signupAdmin(UserRegistrationDTO registrationDTO){
-
-        return null;
+    public ResponseEntity<?> signupAdmin(@RequestBody UserRegistrationDTO registrationDTO){
+        registrationDTO.setRole(Role.ADMIN);
+        Admin admin=
+                userService.save((Admin) convertToEntity(registrationDTO));
+        return ResponseEntity.ok(admin);
     }
     @GetMapping("/")
     public String hello(){
@@ -43,10 +44,15 @@ public class UserController {
     }
 
     private User convertToEntity(UserRegistrationDTO userDto) {
-        User user=null;
-        if (userDto.getRole()==Role.STUDENT)
-        user= modelMapper.map(userDto,User.class);
 
-        return user;
+        if (userDto.getRole()==Role.STUDENT){
+            return modelMapper.map(userDto,Student.class);
+        } else if (userDto.getRole()==Role.FACULTY){
+            return modelMapper.map(userDto,Faculty.class);
+        } else {
+            return modelMapper.map(userDto,Admin.class);
+        }
+
+
     }
 }

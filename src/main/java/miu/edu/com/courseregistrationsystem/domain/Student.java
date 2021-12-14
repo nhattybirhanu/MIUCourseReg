@@ -12,6 +12,8 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+
 public class Student extends User {
 
     @Embedded
