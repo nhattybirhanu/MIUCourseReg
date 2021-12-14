@@ -2,10 +2,7 @@ package miu.edu.com.courseregistrationsystem.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,8 @@ public class AcademicBlock {
     @GeneratedValue
     private int id;
     private String name;
+    @Column(unique = true)
+    String code;
     private String semester;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

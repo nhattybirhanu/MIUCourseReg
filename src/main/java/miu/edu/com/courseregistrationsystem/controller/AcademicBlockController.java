@@ -1,27 +1,27 @@
 package miu.edu.com.courseregistrationsystem.controller;
 
 import miu.edu.com.courseregistrationsystem.domain.AcademicBlock;
-import miu.edu.com.courseregistrationsystem.domain.CourseOffering;
-import miu.edu.com.courseregistrationsystem.service.implementation.AcademicBlockServiceImpl;
+import miu.edu.com.courseregistrationsystem.dto.AcademicBlockDto;
+import miu.edu.com.courseregistrationsystem.service.AcademicBlockService;
+import miu.edu.com.courseregistrationsystem.util.DateAndCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/academicblocks")
 public class AcademicBlockController {
 
     @Autowired
-    AcademicBlockServiceImpl academicBlockService;
+    AcademicBlockService academicBlockService;
 
-//
-//    @GetMapping("/all")
-//    public List<AcademicBlock> getAllAcademicBlock() {
-//       return academicBlockService.getAllAcademicBlock();
-//    }
+
+    @GetMapping("/all")
+    public List<AcademicBlock> getAllAcademicBlock() {
+       return academicBlockService.allBlocks();
+    }
 
 //    @PostMapping(value = "/courseOffering/add")
 //    public void addCourseOffering(CourseOffering courseOffering) {
@@ -44,10 +44,17 @@ public class AcademicBlockController {
 //        }
 //    }
 
-//    @PostMapping("/add")
-//    public AcademicBlock save(AcademicBlock academicBlock) {
-//      return academicBlockService.save(academicBlock);
-//    }
+    @PostMapping("/create")
+    public AcademicBlock save(@RequestBody AcademicBlockDto academicBlockDto) {
+        LocalDateTime [] localDateTimes= DateAndCodeUtil.getStartAndEndTime(academicBlockDto.getYear(),academicBlockDto.getMonth(),academicBlockDto.getDay(),academicBlockDto.getStartWeek(),academicBlockDto.getEndWeek());
+        AcademicBlock academicBlock=new AcademicBlock();
+        academicBlock.setStartDate(localDateTimes[0]);
+        academicBlock.setEndDate(localDateTimes[1]);
+        academicBlock.setCode(DateAndCodeUtil.code(localDateTimes[0],academicBlockDto.getStartWeek(),academicBlockDto.getEndWeek()));
+        academicBlock.setName(academicBlockDto.getName());
+        academicBlock.setSemester(academicBlockDto.getSemester());
+      return academicBlockService.save(academicBlock);
+    }
 
 //
 //    @DeleteMapping("/delete/{id}")

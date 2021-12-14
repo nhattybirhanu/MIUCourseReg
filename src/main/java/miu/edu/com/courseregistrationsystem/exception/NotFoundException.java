@@ -1,0 +1,7 @@
+package miu.edu.com.courseregistrationsystem.exception;
+
+public class NotFoundException extends RuntimeException{
+    public NotFoundException(String message) {
+        super(message);
+    }
+}

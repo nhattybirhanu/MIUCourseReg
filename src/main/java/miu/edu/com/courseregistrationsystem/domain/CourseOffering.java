@@ -19,8 +19,9 @@ public class CourseOffering {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String code;
-    private String role;
-    private int availableSeat;
+    private int totalSeat;
+    @Transient
+    private  int availableSeat;
 
     @OneToMany
     private List<RegistrationRequest> registrationRequests = new ArrayList<>();
@@ -29,10 +30,16 @@ public class CourseOffering {
     private Course course;
 
     @OneToMany
-    private List<Student> faculity = new ArrayList<>();
+    private List<Faculty> faculty = new ArrayList<>();
+    @OneToMany
+    private List<Student> student = new ArrayList<>();
 
 
     public void addStudent(User s) {
+    }
+
+    public int getAvailableSeat() {
+        return totalSeat-registrationRequests.size();
     }
 }
 
