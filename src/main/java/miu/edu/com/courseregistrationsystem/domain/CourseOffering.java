@@ -18,7 +18,9 @@ public class CourseOffering {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false,unique = true)
     private String code;
+
     private int totalSeat;
     @Transient
     private  int availableSeat;
@@ -29,8 +31,8 @@ public class CourseOffering {
     @OneToOne
     private Course course;
 
-    @OneToMany
-    private List<Faculty> faculty = new ArrayList<>();
+    @OneToOne
+    private Faculty faculty ;
     @OneToMany
     private List<Student> student = new ArrayList<>();
 
