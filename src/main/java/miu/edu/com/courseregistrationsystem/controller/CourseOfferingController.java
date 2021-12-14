@@ -1,6 +1,8 @@
 package miu.edu.com.courseregistrationsystem.controller;
 
 import miu.edu.com.courseregistrationsystem.domain.CourseOffering;
+import miu.edu.com.courseregistrationsystem.dto.CourseOfferingDto;
+import miu.edu.com.courseregistrationsystem.service.CourseOfferingService;
 import miu.edu.com.courseregistrationsystem.service.implementation.CourseOfferingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +17,7 @@ import java.util.List;
 public class CourseOfferingController {
 
     @Autowired
-    CourseOfferingServiceImpl courseOfferingService;
+    CourseOfferingService courseOfferingService;
 
 
 //    @PutMapping("/update/{id}")
@@ -33,8 +35,8 @@ public class CourseOfferingController {
     }
 
     @GetMapping(value = "/create")
-    public CourseOffering create(@RequestBody CourseOffering courseOffering) {
-        return courseOfferingService.create(courseOffering);
+    public CourseOffering create(@RequestBody CourseOfferingDto courseOfferingDto) {
+        return courseOfferingService.create(courseOfferingDto);
     }
 
     @GetMapping("/all")
