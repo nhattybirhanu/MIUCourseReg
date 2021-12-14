@@ -21,8 +21,8 @@ public class RegistrationEventController {
 //        return registrationEventService.getRegistrationEvent(id);
 //    }
 
-    @PostMapping(value = "/save")
-    public RegistrationEvent save(@RequestBody RegistrationEvent registrationEvent) {
+    @PostMapping(value = "/Create")
+    public RegistrationEvent create(@RequestBody RegistrationEvent registrationEvent) {
         return registrationEventService.save(registrationEvent);
     }
 
