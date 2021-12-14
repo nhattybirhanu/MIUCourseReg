@@ -1,6 +1,5 @@
 package miu.edu.com.courseregistrationsystem.config.security;
 
-import miu.edu.com.courseregistrationsystem.domain.Account;
 import miu.edu.com.courseregistrationsystem.domain.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,15 +15,10 @@ public class CustomUserDetails implements UserDetails {
     private String password;
     private Set<Role> roles;
 
-    public CustomUserDetails(Account account) {
-        username = account.getUsername();
-        password = account.getPassword();
-        roles = account.getRoles();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole()))
+        return roles.stream().map(role -> new SimpleGrantedAuthority(""))
                 .collect(Collectors.toList());
     }
 

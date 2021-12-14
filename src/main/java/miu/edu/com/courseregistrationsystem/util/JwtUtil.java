@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
+//@Service
 public class JwtUtil {
 
-    @Autowired
-    AccountService accountService;
+  //  @Autowired AccountService accountService;
 
     private String secret;
     private int jwtExpirationInMs;
@@ -49,7 +48,7 @@ public class JwtUtil {
             claims.put("role", "ROLE_STUDENT");
         }
 
-        claims.put("userId",accountService.getAccountByUsername(userDetails.getUsername()).getId());
+        //claims.put("userId",accountService.getAccountByUsername(userDetails.getUsername()).getId());
         return doGenerateToken(claims, userDetails.getUsername());
 
     }

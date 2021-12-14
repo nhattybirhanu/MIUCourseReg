@@ -29,10 +29,10 @@ public class CourseOffering {
     private Course course;
 
     @OneToMany
-    private List<Faculty> faculity = new ArrayList<>();
+    private List<User> faculity = new ArrayList<>();
 
 
-    public void addStudent(Student s) {
+    public void addStudent(User s) {
     }
 }
 

@@ -1,6 +1,8 @@
 package miu.edu.com.courseregistrationsystem.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
@@ -8,13 +10,14 @@ import javax.persistence.Id;
 
 @Embeddable
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
-    @Id
-    @GeneratedValue
-    private int id;
     private String street;
     private String city;
-    private String postalCode;
+    private int postalCode;
     private String state;
+
+
 }

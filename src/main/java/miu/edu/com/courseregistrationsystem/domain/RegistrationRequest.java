@@ -21,7 +21,7 @@ public class RegistrationRequest {
     private int priority;
 
     @ManyToOne
-    private Student student;
+    private User student;
 
     @ManyToOne
     private CourseOffering courseOffering;

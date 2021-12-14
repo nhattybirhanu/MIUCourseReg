@@ -28,7 +28,7 @@ public class RegistrationGroup {
     private LocalDateTime endDateTime;
 
     @OneToMany
-    private List<Student> student = new ArrayList<>();
+    private List<User> student = new ArrayList<>();
 
     @OneToMany
     private List<AcademicBlock> blocks = new ArrayList<>();

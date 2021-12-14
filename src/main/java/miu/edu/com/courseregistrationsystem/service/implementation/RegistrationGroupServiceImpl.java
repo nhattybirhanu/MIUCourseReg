@@ -1,9 +1,6 @@
 package miu.edu.com.courseregistrationsystem.service.implementation;
 
-import miu.edu.com.courseregistrationsystem.domain.AcademicBlock;
-import miu.edu.com.courseregistrationsystem.domain.CourseOffering;
-import miu.edu.com.courseregistrationsystem.domain.RegistrationGroup;
-import miu.edu.com.courseregistrationsystem.domain.Student;
+import miu.edu.com.courseregistrationsystem.domain.*;
 import miu.edu.com.courseregistrationsystem.repository.RegistrationGroupRepository;
 import miu.edu.com.courseregistrationsystem.service.RegistrationGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
 
         Optional<RegistrationGroup> registrationGroup = registrationGroupRepository.findById(groupId);
         registrationGroup.ifPresentOrElse(r->{
-            Optional<Student> student = r.getStudent().stream().filter(s -> s.getId()==studentId).findAny();
+            Optional<User> student = r.getStudent().stream().filter(s -> s.getId()==studentId).findAny();
             student.ifPresentOrElse(s->{
                 Optional<AcademicBlock> block = r.getBlocks().stream().filter(a->a.getId()==blockId).findAny();
                 block.ifPresentOrElse(a->{
@@ -85,7 +82,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
 
         Optional<RegistrationGroup> registrationGroup = registrationGroupRepository.findById(groupId);
         registrationGroup.ifPresentOrElse(r-> {
-            Optional<Student> student = r.getStudent().stream().filter(s -> s.getId() == studentId).findAny();
+            Optional<User> student = r.getStudent().stream().filter(s -> s.getId() == studentId).findAny();
             student.ifPresentOrElse(s -> {
                 r.removeStudent(groupId,studentId);
 

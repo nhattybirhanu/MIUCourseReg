@@ -2,18 +2,22 @@ package miu.edu.com.courseregistrationsystem.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@EqualsAndHashCode(callSuper=false)
+
 @NoArgsConstructor
 @AllArgsConstructor
-public class Faculty extends Person {
+public class Faculty extends User {
 
-    @Id
-    @GeneratedValue
-    private int id;
     private String title;
+
+    public Faculty(String firstName, String lastName, String email, String password, Role role, String title) {
+        super(firstName, lastName, email, password, role);
+        this.title = title;
+    }
 }

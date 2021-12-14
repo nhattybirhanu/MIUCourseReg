@@ -3,7 +3,7 @@ package miu.edu.com.courseregistrationsystem.controller;
 import miu.edu.com.courseregistrationsystem.domain.AcademicBlock;
 import miu.edu.com.courseregistrationsystem.domain.Student;
 import miu.edu.com.courseregistrationsystem.repository.AcademicBlockRepository;
-import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
+import miu.edu.com.courseregistrationsystem.repository.PersonRepository;
 import miu.edu.com.courseregistrationsystem.service.implementation.RegistrationGroupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class RegistrationGroupController {
     private RegistrationGroupServiceImpl registrationGroupService;
 
     @Autowired
-    private StudentRepository studentRepository;
+    private PersonRepository studentRepository;
 
     @Autowired
     private AcademicBlockRepository academicBlockRepository;
