@@ -115,4 +115,10 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
 
     }
 
+    @Override
+    public RegistrationGroup create(RegistrationGroup registrationGroup) {
+        registrationGroupRepository.save(registrationGroup);
+        return null;
+    }
+
 }

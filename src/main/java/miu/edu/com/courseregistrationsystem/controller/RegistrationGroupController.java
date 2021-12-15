@@ -1,6 +1,7 @@
 package miu.edu.com.courseregistrationsystem.controller;
 
 import miu.edu.com.courseregistrationsystem.domain.AcademicBlock;
+import miu.edu.com.courseregistrationsystem.domain.RegistrationGroup;
 import miu.edu.com.courseregistrationsystem.domain.Student;
 import miu.edu.com.courseregistrationsystem.repository.AcademicBlockRepository;
 import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/admin/registrationGroup")
+@RequestMapping("/admin/registrationgroup")
 public class RegistrationGroupController {
 
 
@@ -22,7 +23,10 @@ public class RegistrationGroupController {
     @Autowired
     private AcademicBlockRepository academicBlockRepository;
 
-
+    @GetMapping("/create")
+    public RegistrationGroup registrationGroup(RegistrationGroup group){
+return registrationGroupService.create(group);
+    }
 
     @PostMapping(value = "student/add")
     public Student addStudent(@RequestBody int groupId, Student student) {

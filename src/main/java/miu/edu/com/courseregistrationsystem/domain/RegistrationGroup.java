@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,10 +20,8 @@ public class RegistrationGroup {
     @Id
     @GeneratedValue
     private int id;
-
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
-
+    @Column(nullable = false)
+    private  String title;
     @OneToMany
     private List<Student> student = new ArrayList<>();
 
