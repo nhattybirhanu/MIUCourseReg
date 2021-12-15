@@ -6,6 +6,7 @@ import miu.edu.com.courseregistrationsystem.dto.EventDto;
 import miu.edu.com.courseregistrationsystem.service.RegistrationEventService;
 import miu.edu.com.courseregistrationsystem.util.DateAndCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DateTimeException;
@@ -51,8 +52,13 @@ public class RegistrationEventController {
         registrationEventService.delete(id);
     }
 
-    @PatchMapping("updateStatus")
-    public void updateStatus(@RequestBody RegistrationStatus status){
+    @PatchMapping("updatestatus/{id}")
+    public ResponseEntity<?> updateStatus(@PathVariable("id") int id,@RequestBody RegistrationStatus status){
+return ResponseEntity.ok(registrationEventService.updateStatus(id,status));
+    }
+    @PatchMapping("/addgroup/{id}")
+    public ResponseEntity<?> addGroup(@PathVariable("id")int id, @RequestBody int group_id){
 
+        return ResponseEntity.ok(registrationEventService.addRegGroup(id,group_id));
     }
 }

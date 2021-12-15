@@ -14,6 +14,7 @@ public interface RegistrationGroupService {
     void removeBlock(int groupId, AcademicBlock block);
     RegistrationGroup create(RegistrationGroup registrationGroup);
     List<RegistrationGroup> getAll();
-    RegistrationGroup addStudentBatch(int id,int [] student_id);
+    RegistrationGroup addStudentBatch(int id,int [] student_ids);
+    RegistrationGroup addBlockBatch(int id,int [] blocks_ids);
 
 }

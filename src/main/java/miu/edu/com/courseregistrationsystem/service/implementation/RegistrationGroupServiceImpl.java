@@ -2,6 +2,7 @@ package miu.edu.com.courseregistrationsystem.service.implementation;
 
 import miu.edu.com.courseregistrationsystem.domain.*;
 import miu.edu.com.courseregistrationsystem.exception.NotFoundException;
+import miu.edu.com.courseregistrationsystem.repository.AcademicBlockRepository;
 import miu.edu.com.courseregistrationsystem.repository.RegistrationGroupRepository;
 import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
 import miu.edu.com.courseregistrationsystem.service.RegistrationGroupService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Service
 public class RegistrationGroupServiceImpl implements RegistrationGroupService {
@@ -18,6 +20,8 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
     private RegistrationGroupRepository registrationGroupRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    AcademicBlockRepository  blockRepository;
 
     @Autowired
     public RegistrationGroupServiceImpl(RegistrationGroupRepository registrationGroupRepository) {
@@ -139,17 +143,40 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
         registrationGroupOptional.ifPresentOrElse(new Consumer<RegistrationGroup>() {
             @Override
             public void accept(RegistrationGroup registrationGroup) {
+                List<Student> studentSet=registrationGroup.getStudent();
                 List stu_ids= ArrayHelper.toList(student_ids);
-
+                studentSet=studentSet.stream().filter(student -> stu_ids.contains(student.getId())).collect(Collectors.toList());
                 List<Student> studentList=studentRepository.findAllById(stu_ids);
-                System.out.println(studentList);
-                Set<Student> studentSet=registrationGroup.getStudent();
                 studentSet.addAll(studentList);
+                registrationGroup.setStudent(studentSet);
+                registrationGroupRepository.save(registrationGroup);
+
             }
         },()->{
             new NotFoundException("Registration group is not found for "+group_id);
         });
         return registrationGroupOptional.orElseThrow();
     }
+
+    @Override
+    public RegistrationGroup addBlockBatch(int group_id, int[] blocks_ids) {
+        Optional<RegistrationGroup> registrationGroupOptional=registrationGroupRepository.findById(group_id);
+        registrationGroupOptional.ifPresentOrElse(new Consumer<RegistrationGroup>() {
+            @Override
+            public void accept(RegistrationGroup registrationGroup) {
+                List blocks_ids_list= ArrayHelper.toList(blocks_ids);
+                List<AcademicBlock> blockSet=registrationGroup.getBlocks();
+                blockSet=blockSet.stream().filter(block->
+                        blocks_ids_list.contains(block.getId())).collect(Collectors.toList());
+                List<AcademicBlock> blockList=blockRepository.findAllById(blocks_ids_list);
+                blockSet.addAll(blockList);
+                registrationGroup.setBlocks(blockSet);
+                registrationGroupRepository.save(registrationGroup);
+
+            }
+        },()->{
+            new NotFoundException("Registration group is not found for "+group_id);
+        });
+        return registrationGroupOptional.orElseThrow();    }
 
 }

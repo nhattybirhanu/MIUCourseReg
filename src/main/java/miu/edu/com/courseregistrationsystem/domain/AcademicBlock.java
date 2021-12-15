@@ -22,6 +22,8 @@ public class AcademicBlock {
     private LocalDateTime endDate;
 
     @OneToMany
+    @JoinColumn(name = "course_offering_id")
+
     private List<CourseOffering> courseOfferings = new ArrayList<>();
 
 }
