@@ -4,6 +4,7 @@ import miu.edu.com.courseregistrationsystem.domain.Admin;
 import miu.edu.com.courseregistrationsystem.domain.Faculty;
 import miu.edu.com.courseregistrationsystem.domain.Student;
 import miu.edu.com.courseregistrationsystem.repository.AdminRepository;
+import miu.edu.com.courseregistrationsystem.repository.FacultyRepository;
 import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
 import miu.edu.com.courseregistrationsystem.repository.UserRepository;
 import miu.edu.com.courseregistrationsystem.service.AdminService;
@@ -22,10 +23,13 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
     AdminRepository adminRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    FacultyRepository facultyRepository;
     @Override
     public Admin save(Admin admin) {
         return userRepository.save(admin);
     }
+
 
     @Override
     public Faculty save(Faculty faculty) {
@@ -35,6 +39,11 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
 
     @Override
     public List<Faculty> getAllFaculty() {
+        return facultyRepository.findAll();
+    }
+
+    @Override
+    public Student findById(int id) {
         return null;
     }
 
@@ -52,5 +61,15 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
     public void delete(Integer id) {
 
     }
+
+    @Override
+    public List<Admin> all() {
+        return adminRepository.findAll();
+    }
+
+//    @Override
+//    public Student findById(int id) {
+//        return studentRepository.findById(id);
+//    }
 
 }

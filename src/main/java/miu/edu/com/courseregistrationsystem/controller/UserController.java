@@ -40,7 +40,7 @@ public class UserController {
     }
     @GetMapping("/")
     public String hello(){
-        return  "Hello";
+        return  "Welcome To Course Registration System";
     }
 
     private User convertToEntity(UserRegistrationDTO userDto) {

@@ -1,5 +1,6 @@
 package miu.edu.com.courseregistrationsystem.controller;
 
+import miu.edu.com.courseregistrationsystem.domain.RegistrationEvent;
 import miu.edu.com.courseregistrationsystem.domain.Student;
 import miu.edu.com.courseregistrationsystem.service.StudentService;
 import miu.edu.com.courseregistrationsystem.service.implementation.StudentServiceImpl;
@@ -17,5 +18,10 @@ public class StudentController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllStudent(){
         return ResponseEntity.ok(studentService.getAllStudent());
+    }
+
+    @GetMapping(value = "/get/{id}")
+    public Student findById(@PathVariable int id) {
+        return studentService.findById(id);
     }
 }

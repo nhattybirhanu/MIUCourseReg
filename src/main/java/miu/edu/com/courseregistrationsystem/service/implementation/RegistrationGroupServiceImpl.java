@@ -143,7 +143,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
 
                 List<Student> studentList=studentRepository.findAllById(stu_ids);
                 System.out.println(studentList);
-                Set<Student> studentSet=registrationGroup.getStudent();
+                List<Student> studentSet=registrationGroup.getStudent();
                 studentSet.addAll(studentList);
             }
         },()->{
