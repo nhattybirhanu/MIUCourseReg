@@ -1,5 +1,6 @@
 package miu.edu.com.courseregistrationsystem.service.implementation;
 
+import miu.edu.com.courseregistrationsystem.domain.RegistrationRequest;
 import miu.edu.com.courseregistrationsystem.domain.Student;
 import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
 import miu.edu.com.courseregistrationsystem.service.StudentService;
@@ -17,12 +18,23 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<RegistrationRequest> getRegistration(int id) {
+        return studentRepository.findById(id).orElseThrow().getRegistrationRequests();
+    }
+
+    @Override
     public List<Student> getAllStudent() {
         return studentRepository.findAll();
     }
 
+
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public Student findById(int id) {
+        return studentRepository.findById(id).orElseThrow();
     }
 }

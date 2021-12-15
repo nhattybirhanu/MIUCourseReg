@@ -2,6 +2,7 @@ package miu.edu.com.courseregistrationsystem.service.implementation;
 
 import miu.edu.com.courseregistrationsystem.domain.Admin;
 import miu.edu.com.courseregistrationsystem.domain.Faculty;
+import miu.edu.com.courseregistrationsystem.domain.RegistrationRequest;
 import miu.edu.com.courseregistrationsystem.domain.Student;
 import miu.edu.com.courseregistrationsystem.repository.AdminRepository;
 import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
@@ -44,6 +45,11 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
     }
 
     @Override
+    public List<RegistrationRequest> getRegistration(int id) {
+        return null;
+    }
+
+    @Override
     public List<Student> getAllStudent() {
         return null;
     }
@@ -51,6 +57,11 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public Student findById(int id) {
+        return null;
     }
 
 }

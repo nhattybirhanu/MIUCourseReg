@@ -17,5 +17,16 @@ public class StudentController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllStudent(){
         return ResponseEntity.ok(studentService.getAllStudent());
+
+
+
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getStudent(@PathVariable("id") int id){
+        return ResponseEntity.ok(studentService.findById(id));
+
+    }
+
+
 }

@@ -4,6 +4,8 @@ import miu.edu.com.courseregistrationsystem.domain.RegistrationEvent;
 import miu.edu.com.courseregistrationsystem.domain.RegistrationStatus;
 import miu.edu.com.courseregistrationsystem.dto.EventDto;
 import miu.edu.com.courseregistrationsystem.service.RegistrationEventService;
+import miu.edu.com.courseregistrationsystem.service.implementation.RegistererImpl;
+import miu.edu.com.courseregistrationsystem.service.implementation.RegistrationServiceImpl;
 import miu.edu.com.courseregistrationsystem.util.DateAndCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class RegistrationEventController {
 
     @Autowired
     RegistrationEventService registrationEventService;
+    @Autowired
+    RegistererImpl registerer;
 
 
     @GetMapping(value = "/get/{id}")
@@ -61,4 +65,10 @@ return ResponseEntity.ok(registrationEventService.updateStatus(id,status));
 
         return ResponseEntity.ok(registrationEventService.addRegGroup(id,group_id));
     }
+    @PatchMapping("/process/{id}")
+    public ResponseEntity<?> process(@PathVariable("id") int id,@RequestParam("processed") boolean processed){
+        registerer.process(id);
+        return ResponseEntity.ok(processed);
+    }
+
 }

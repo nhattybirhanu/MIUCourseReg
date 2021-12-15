@@ -75,16 +75,15 @@ public class RegistererImpl implements Registerer {
         for(RegistrationGroup group: registrationEvent.getGroup()){
             for(AcademicBlock ab : group.getBlocks()){
                 for(CourseOffering of : ab.getCourseOfferings()){
-                    for(Student student : of.getStudent()){
+                    for(RegistrationRequest request: of.getRegistrationRequests()){
+                        Student student = request.getStudent();
                         if(!memo.containsKey(student.getId()))memo.put(student.getId(),new HashMap<>());
 
                         Map<Integer,PriorityQueue<RegistrationRequest>> temp = memo.get(ab.getId());
                         if(!temp.containsKey(student.getId())){
                             PriorityQueue<RegistrationRequest> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(RegistrationRequest::getPriority));
                             temp.put(student.getId(),priorityQueue);
-                            for(RegistrationRequest request : of.getRegistrationRequests()){
-                                priorityQueue.add(request);
-                            }
+                            priorityQueue.add(request);
                         }
                     }
                 }
