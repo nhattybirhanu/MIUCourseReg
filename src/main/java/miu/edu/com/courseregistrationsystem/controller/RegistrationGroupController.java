@@ -7,7 +7,10 @@ import miu.edu.com.courseregistrationsystem.repository.AcademicBlockRepository;
 import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
 import miu.edu.com.courseregistrationsystem.service.implementation.RegistrationGroupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/registrationgroup")
@@ -23,17 +26,20 @@ public class RegistrationGroupController {
     @Autowired
     private AcademicBlockRepository academicBlockRepository;
 
-    @GetMapping("/create")
-    public RegistrationGroup registrationGroup(RegistrationGroup group){
+    @PostMapping("/create")
+    public RegistrationGroup registrationGroup(@RequestBody  RegistrationGroup group){
 return registrationGroupService.create(group);
     }
 
-    @PostMapping(value = "student/add")
-    public Student addStudent(@RequestBody int groupId, Student student) {
-        studentRepository.findById(student.getId()).ifPresent(c ->{
-            throw new RuntimeException();
-        });
-        return studentRepository.save(student);
+    @GetMapping("/all")
+    public List<RegistrationGroup> getAll(){
+        return registrationGroupService.getAll();
+    }
+
+    @PutMapping(value = "/add/students/{id}")
+    public ResponseEntity<?> addStudent(@PathVariable("id") int groupId, @RequestBody int [] student_ids) {
+
+        return ResponseEntity.ok(registrationGroupService.addStudentBatch(groupId,student_ids));
     }
 
     @RequestMapping(value = "student/remove/{id}", method = RequestMethod.GET)

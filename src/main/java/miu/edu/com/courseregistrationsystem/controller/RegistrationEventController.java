@@ -27,17 +27,17 @@ public class RegistrationEventController {
     }
 
     @PostMapping(value = "/create")
-    public RegistrationEvent create(@RequestBody EventDto eventDto) {
-        LocalDateTime start= DateAndCodeUtil.convertToDate(eventDto.getStartTime());
-        LocalDateTime end= DateAndCodeUtil.convertToDate(eventDto.getEndTime());
-        if (end.isBefore(start)){
-            new DateTimeException("End time must be after start time");
-        }
-        RegistrationEvent registrationEvent=new RegistrationEvent();
-            registrationEvent.setEndDateTime(end);
-        registrationEvent.setEndDateTime(start);
-        registrationEvent.setName(eventDto.getName());
-        registrationEvent.setStatus(RegistrationStatus.CLOSED);
+    public RegistrationEvent create(@RequestBody RegistrationEvent registrationEvent) {
+//        LocalDateTime start= DateAndCodeUtil.convertToDate(eventDto.getStartTime());
+//        LocalDateTime end= DateAndCodeUtil.convertToDate(eventDto.getEndTime());
+//        if (end.isBefore(start)){
+//            new DateTimeException("End time must be after start time");
+//        }
+//        RegistrationEvent registrationEvent=new RegistrationEvent();
+//            registrationEvent.setEndDateTime(end);
+//        registrationEvent.setEndDateTime(start);
+//        registrationEvent.setName(eventDto.getName());
+        registrationEvent.setStatus(registrationEvent.getStartDateTime().isAfter(LocalDateTime.now())?RegistrationStatus.PENDING:RegistrationStatus.CLOSED);
         return registrationEventService.save(registrationEvent);
     }
 

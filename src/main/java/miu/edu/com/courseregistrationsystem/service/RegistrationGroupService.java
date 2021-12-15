@@ -4,6 +4,8 @@ import miu.edu.com.courseregistrationsystem.domain.AcademicBlock;
 import miu.edu.com.courseregistrationsystem.domain.RegistrationGroup;
 import miu.edu.com.courseregistrationsystem.domain.Student;
 
+import java.util.List;
+
 public interface RegistrationGroupService {
     void request(int groupId,int studentId,int blockId, int courseOfferingId, int priority);
     void addStudent(int groupId, Student student);
@@ -11,5 +13,7 @@ public interface RegistrationGroupService {
     void removeStudent(int groupId, int studentId);
     void removeBlock(int groupId, AcademicBlock block);
     RegistrationGroup create(RegistrationGroup registrationGroup);
+    List<RegistrationGroup> getAll();
+    RegistrationGroup addStudentBatch(int id,int [] student_id);
 
 }
