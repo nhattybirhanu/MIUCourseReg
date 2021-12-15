@@ -42,7 +42,7 @@ public class RegistrationEventController {
         return registrationEventService.save(registrationEvent);
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/latest")
     public List<RegistrationEvent> getAllRegistrationEvent() {
         return registrationEventService.getAllRegistrationEvent();
     }
