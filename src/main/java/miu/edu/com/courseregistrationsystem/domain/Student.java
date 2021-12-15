@@ -10,6 +10,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper=false)
 
 @Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -38,4 +39,6 @@ public class Student extends User {
         this.mailingAddress = mailingAddress;
         this.homeAddress = homeAddress;
     }
+
+
 }

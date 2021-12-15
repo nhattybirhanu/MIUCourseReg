@@ -1,16 +1,23 @@
 package miu.edu.com.courseregistrationsystem.service.implementation;
 
 import miu.edu.com.courseregistrationsystem.domain.*;
+import miu.edu.com.courseregistrationsystem.exception.NotFoundException;
 import miu.edu.com.courseregistrationsystem.repository.RegistrationGroupRepository;
+import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
 import miu.edu.com.courseregistrationsystem.service.RegistrationGroupService;
+import org.hibernate.internal.util.collections.ArrayHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Consumer;
 
 @Service
 public class RegistrationGroupServiceImpl implements RegistrationGroupService {
+    @Autowired
     private RegistrationGroupRepository registrationGroupRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Autowired
     public RegistrationGroupServiceImpl(RegistrationGroupRepository registrationGroupRepository) {
@@ -54,7 +61,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
         registrationGroup.ifPresentOrElse(r->{
             r.getStudent().stream().filter(s -> s.getId() ==student.getId() ).findAny()
                     .orElseThrow(()->new IllegalArgumentException("This Student is already exist"));
-            r.addStudent(student);
+         //   r.addStudent(student);
 
           //  return registrationGroupRepository.save(groupId, Student);
         },()->{
@@ -69,7 +76,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
         registrationGroup.ifPresentOrElse(r->{
             r.getBlocks().stream().filter(b -> b.getId() ==block.getId() ).findAny()
                     .orElseThrow(()->new IllegalArgumentException("This block is already exist"));
-            r.addBlock(block);
+           // r.addBlock(block);
 
         },()->{
             new IllegalArgumentException("This Group is not exist");
@@ -84,7 +91,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
         registrationGroup.ifPresentOrElse(r-> {
             Optional<Student> student = r.getStudent().stream().filter(s -> s.getId() == studentId).findAny();
             student.ifPresentOrElse(s -> {
-                r.removeStudent(groupId,studentId);
+             //   r.removeStudent(groupId,studentId);
 
             }, () -> {
                         new IllegalArgumentException("The student is not exist in this Group");
@@ -103,7 +110,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
         registrationGroup.ifPresentOrElse(r-> {
             Optional<AcademicBlock> aBlock = r.getBlocks().stream().filter(b -> b.getId() == block.getId()).findAny();
             aBlock.ifPresentOrElse(b -> {
-                r.removeBlock(groupId,block);
+               // r.removeBlock(groupId,block);
 
             }, () -> {
                 new IllegalArgumentException("The Block is not exist in this Group");
@@ -117,8 +124,32 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
 
     @Override
     public RegistrationGroup create(RegistrationGroup registrationGroup) {
-        registrationGroupRepository.save(registrationGroup);
-        return null;
+        return registrationGroupRepository.save(registrationGroup);
+
+    }
+
+    @Override
+    public List<RegistrationGroup> getAll() {
+        return registrationGroupRepository.findAll();
+    }
+
+    @Override
+    public RegistrationGroup addStudentBatch(int group_id, int[] student_ids) {
+        Optional<RegistrationGroup> registrationGroupOptional=registrationGroupRepository.findById(group_id);
+        registrationGroupOptional.ifPresentOrElse(new Consumer<RegistrationGroup>() {
+            @Override
+            public void accept(RegistrationGroup registrationGroup) {
+                List stu_ids= ArrayHelper.toList(student_ids);
+
+                List<Student> studentList=studentRepository.findAllById(stu_ids);
+                System.out.println(studentList);
+                Set<Student> studentSet=registrationGroup.getStudent();
+                studentSet.addAll(studentList);
+            }
+        },()->{
+            new NotFoundException("Registration group is not found for "+group_id);
+        });
+        return registrationGroupOptional.orElseThrow();
     }
 
 }
