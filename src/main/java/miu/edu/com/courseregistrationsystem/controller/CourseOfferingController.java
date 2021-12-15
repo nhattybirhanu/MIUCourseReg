@@ -34,7 +34,7 @@ public class CourseOfferingController {
         return courseOfferingService.findById(id);
     }
 
-    @GetMapping(value = "/create")
+    @PostMapping(value = "/create")
     public CourseOffering create(@RequestBody CourseOfferingDto courseOfferingDto) {
         return courseOfferingService.create(courseOfferingDto);
     }
