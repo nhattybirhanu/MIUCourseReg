@@ -2,15 +2,30 @@ package miu.edu.com.courseregistrationsystem.service.implementation;
 
 import miu.edu.com.courseregistrationsystem.domain.*;
 import miu.edu.com.courseregistrationsystem.service.Registerer;
+import miu.edu.com.courseregistrationsystem.service.RegistrationEventService;
+import miu.edu.com.courseregistrationsystem.service.RegistrationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
+@Transactional
 public class RegistererImpl implements Registerer {
+    private RegistrationService registrationService;
+    private RegistrationEventService registrationEventService;
+
+    @Autowired
+    public RegistererImpl(RegistrationService registrationService, RegistrationEventService registrationEventService) {
+        this.registrationService = registrationService;
+        this.registrationEventService = registrationEventService;
+    }
 
     @Override
-    public void process(long eventId) {
-        RegistrationEvent registrationEvent = null;
+    public void process(int eventId) {
+        RegistrationEvent registrationEvent = registrationEventService.getRegistrationEvent(eventId);
 
         //map<blockId,map<studentId,List<course>>>
         Map<Integer,Map<Integer,PriorityQueue<RegistrationRequest>>> memo = init(registrationEvent);
@@ -37,8 +52,11 @@ public class RegistererImpl implements Registerer {
                         count++;
                         RegistrationRequest request=requests.remove();
                         if(request.getCourseOffering().getAvailableSeat()>0){
-                            //register
-                            //decrease available seats
+                            Registration registration = new Registration();
+                            registration.setCourseOffering(request.getCourseOffering());
+                            registration.setStudent(student);
+                            registrationService.save(registration);
+                            request.getCourseOffering().setAvailableSeat(request.getCourseOffering().getAvailableSeat()-1);
                             temp.add(new StudentPriorityWrapper(total-count,student));
                             break;
                         }
