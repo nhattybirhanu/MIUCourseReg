@@ -5,10 +5,12 @@ import miu.edu.com.courseregistrationsystem.dto.AcademicBlockDto;
 import miu.edu.com.courseregistrationsystem.service.AcademicBlockService;
 import miu.edu.com.courseregistrationsystem.util.DateAndCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/academicblocks")
@@ -33,16 +35,16 @@ public class AcademicBlockController {
 
         academicBlockService.removeCourseOffering(id);
     }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?>  getBlockById(@PathVariable Integer id) {
-//        Optional<AcademicBlock> result = Optional.ofNullable(academicBlockService.getBlockById(id));
-//        if (result.isPresent()) {
-//            return ResponseEntity.ok(result.get());
-//        } else {
-//            return ResponseEntity.badRequest().build();
-//        }
-//    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBlockById(@PathVariable Integer id) {
+        Optional<AcademicBlock> result =academicBlockService.getBlockById(id);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @PostMapping("/create")
     public AcademicBlock save(@RequestBody AcademicBlockDto academicBlockDto) {
@@ -55,6 +57,12 @@ public class AcademicBlockController {
         academicBlock.setSemester(academicBlockDto.getSemester());
       return academicBlockService.save(academicBlock);
     }
+    @PutMapping(value = "add/course/{id}")
+    public ResponseEntity<?> addCourse(@PathVariable("id") int groupId, @RequestBody  int [] courses) {
+
+        return ResponseEntity.ok(academicBlockService.batchCourseAdd(groupId,courses));
+    }
+
 
 //
 //    @DeleteMapping("/delete/{id}")

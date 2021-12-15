@@ -11,4 +11,5 @@ public interface AcademicBlockService {
     AcademicBlock save(AcademicBlock academicBlock);
     List<AcademicBlock> allBlocks();
     void removeCourseOffering(int id);
+     AcademicBlock batchCourseAdd(int id,int [] course_offering);
 }

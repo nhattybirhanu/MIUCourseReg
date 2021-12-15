@@ -20,10 +20,12 @@ public class RegistrationGroup {
     private int id;
     @Column(nullable = false)
         private  String title;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
     private List<Student> student = new ArrayList<>();
+    @JoinColumn(name = "academic_block_id")
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<AcademicBlock> blocks = new ArrayList<>();
 
 }

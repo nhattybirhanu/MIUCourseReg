@@ -61,12 +61,28 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
                         registrationEvent.setGroup(groups);
                         registrationEventRepository.save(registrationEvent);
                     } else
-                    new NotFoundException("Registration event is not closed");
+                    new NotFoundException("Registration event is not Opend");
 
                 }
             },()->{
                 new NotFoundException("Registration event is not found");
             });
+        return event.orElseThrow();
+    }
+
+    @Override
+    public RegistrationEvent updateStatus(int id,RegistrationStatus status) {
+        Optional<RegistrationEvent> event=registrationEventRepository.findById(id);
+        event.ifPresentOrElse(new Consumer<RegistrationEvent>() {
+            @Override
+            public void accept(RegistrationEvent registrationEvent) {
+                registrationEvent.setStatus(status);
+                registrationEventRepository.save(registrationEvent);
+
+            }
+        },()->{
+            new NotFoundException("Registration event is not found");
+        });
         return event.orElseThrow();
     }
 }

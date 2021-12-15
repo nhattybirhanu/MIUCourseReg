@@ -47,12 +47,10 @@ return registrationGroupService.create(group);
         this.registrationGroupService.removeStudent(groupId, studentId);
     }
 
-    @PostMapping(value = "block/add")
-    public AcademicBlock addBlock(@RequestBody int groupId, AcademicBlock block) {
-        academicBlockRepository.findById(block.getId()).ifPresent(c ->{
-            throw new RuntimeException();
-        });
-        return academicBlockRepository.save(block);
+    @PutMapping(value = "add/block/{id}")
+    public ResponseEntity<?> addBlock(@PathVariable("id") int groupId, @RequestBody  int [] blocks) {
+
+        return ResponseEntity.ok(registrationGroupService.addBlockBatch(groupId,blocks));
     }
 
     @RequestMapping(value = "block/remove/{id}", method = RequestMethod.GET)

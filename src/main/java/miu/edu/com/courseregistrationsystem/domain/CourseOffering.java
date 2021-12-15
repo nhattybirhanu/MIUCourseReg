@@ -28,6 +28,7 @@ public class CourseOffering {
     @OneToMany
     private List<RegistrationRequest> registrationRequests = new ArrayList<>();
 
+    @JoinColumn(name = "course_id")
     @OneToOne
     private Course course;
 
