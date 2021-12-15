@@ -18,10 +18,23 @@ public class StudentController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllStudent(){
         return ResponseEntity.ok(studentService.getAllStudent());
+
+
+
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getStudent(@PathVariable("id") int id){
+        return ResponseEntity.ok(studentService.findById(id));
+
+    }
+
+<<<<<<< HEAD
     @GetMapping(value = "/get/{id}")
     public Student findById(@PathVariable int id) {
         return studentService.findById(id);
     }
+=======
+
+>>>>>>> 47d0020c2ba4fcad2ee66db4fd93ff99ea3e39e8
 }

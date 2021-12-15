@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper=false)
 
@@ -16,7 +17,9 @@ import javax.persistence.*;
 @Entity
 
 public class Student extends User {
+    @OneToMany(mappedBy = "student")
 
+    List<RegistrationRequest> registrationRequests;
     @Embedded
     @AttributeOverrides( {
             @AttributeOverride(name="street", column=@Column(name="mailing_street")),
@@ -32,6 +35,7 @@ public class Student extends User {
             @AttributeOverride(name="state", column=@Column(name="home_state")),
             @AttributeOverride(name="postalCode", column=@Column(name="home_postalCode"))
     })
+
     private Address homeAddress;
 
     public Student(String firstName, String lastName, String email, String password, Role role, Address mailingAddress, Address homeAddress) {

@@ -22,10 +22,11 @@ public class CourseOffering {
     private String code;
 
     private int totalSeat;
-    @Transient
     private  int availableSeat;
 
     @OneToMany
+    @JoinColumn(name = "registration_request_id")
+
     private List<RegistrationRequest> registrationRequests = new ArrayList<>();
 
     @JoinColumn(name = "course_id")
@@ -34,15 +35,14 @@ public class CourseOffering {
 
     @OneToOne
     private Faculty faculty ;
-    @OneToMany
-    private List<Student> student = new ArrayList<>();
 
 
     public void addStudent(User s) {
     }
 
     public int getAvailableSeat() {
-        return totalSeat-registrationRequests.size();
+   //     availableSeat =(int) (totalSeat-registrationRequests.stream().filter(registrationRequest -> registrationRequest.accepted).count());
+        return availableSeat;
     }
 }
 

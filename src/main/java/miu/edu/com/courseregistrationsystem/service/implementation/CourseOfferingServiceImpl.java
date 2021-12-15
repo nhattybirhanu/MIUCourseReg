@@ -64,6 +64,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
                                   courseOffering.setFaculty(user);
                                   courseOffering.setTotalSeat(courseOfferingDto.getTotalSeat());
+                                  courseOffering.setAvailableSeat(courseOffering.getTotalSeat());
                                   courseOfferingRepository.save(courseOffering);
                                 boolean contains=  academicBlock.getCourseOfferings().contains(courseOffering);
                                 if (!contains){
