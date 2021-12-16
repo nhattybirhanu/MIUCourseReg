@@ -101,15 +101,21 @@ public class RegistrationServiceImpl implements RegistrationService {
                                }
                            }
                        },
-                               ()->new NotFoundException("Student is not found for "+registrationRequestDTO.getStudent_id()));
+                               ()-> {
+                                   throw new NotFoundException("Student is not found for " + registrationRequestDTO.getStudent_id());
+                               });
 
 
                    }
                },
-                       ()->new NotFoundException("Registration group is not found for "+registrationRequestDTO.getGroup_id()));
+                       ()-> {
+                           throw new NotFoundException("Registration group is not found for " + registrationRequestDTO.getGroup_id());
+                       });
             }
         },
-                ()->new NotFoundException("Registration event is not found for "+registrationRequestDTO.getEvent_id()));
+                ()-> {
+                    throw new NotFoundException("Registration event is not found for " + registrationRequestDTO.getEvent_id());
+                });
 
 
         return registrationRequestDTO;
