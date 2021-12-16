@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements StudentService, FacultyService, AdminService {
@@ -29,6 +30,11 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
     @Override
     public Admin save(Admin admin) {
         return userRepository.save(admin);
+    }
+
+    @Override
+    public List<Admin> all() {
+        return null;
     }
 
 
@@ -60,12 +66,20 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
 
     @Override
     public List<Student> getAllStudent() {
-        return null;
+        return studentRepository.findAll();
     }
 
     @Override
     public void delete(Integer id) {
 
+
+    }
+
+    @Override
+    public Student studentFindById(int id) {
+        Optional<Student>
+                optional= studentRepository.findById(id);
+        return optional.orElseThrow();
     }
 
 

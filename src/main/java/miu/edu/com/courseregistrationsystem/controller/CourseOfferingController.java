@@ -30,7 +30,7 @@ public class CourseOfferingController {
 //    }
 
     @GetMapping(value = "/get/{id}")
-    public CourseOffering findById(@PathVariable Integer id) {
+    public CourseOffering findById(@PathVariable("id") Integer id) {
         return courseOfferingService.findById(id);
     }
 

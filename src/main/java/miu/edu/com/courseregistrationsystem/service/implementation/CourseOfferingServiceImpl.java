@@ -103,7 +103,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Override
     public CourseOffering findById(int id) {
-        return null;
+        return courseOfferingRepository.findById(id).orElseThrow();
     }
     @Override
     public Page<CourseOffering> findAll(Pageable pageable) {

@@ -13,5 +13,5 @@ public interface StudentService {
     List<RegistrationRequest> getRegistration(int id);
     List<Student> getAllStudent();
     void delete(Integer id);
-    Student findById(int id);
+    Student studentFindById(int id);
 }

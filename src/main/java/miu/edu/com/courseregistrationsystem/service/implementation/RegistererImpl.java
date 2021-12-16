@@ -41,37 +41,34 @@ public class RegistererImpl implements Registerer {
         }
 
         for(AcademicBlock block: allBlocks){
-            while(studentPriorityQueue!=null){
-                PriorityQueue<StudentPriorityWrapper> temp = new PriorityQueue<>();
-                while (!studentPriorityQueue.isEmpty()){
-                    StudentPriorityWrapper student = studentPriorityQueue.remove();
-                    PriorityQueue<RegistrationRequest> requests=memo.get(block.getId()).get(student.getStudent().getId());
-                    if(requests==null){
-                        temp.add(student);
-                    }
-                    else {
-                        int total = block.getCourseOfferings().size();
-                        int count = 0;
-                        do{
-                            count++;
-                            RegistrationRequest request=requests.remove();
-                            if(request.getCourseOffering().getAvailableSeat()>0){
-                                Registration registration = new Registration();
-                                registration.setCourseOffering(request.getCourseOffering());
-                                registration.setStudent(student.getStudent());
-                                registrationService.save(registration);
-                                request.getCourseOffering().setAvailableSeat(request.getCourseOffering().getAvailableSeat()-1);
-                                temp.add(new StudentPriorityWrapper(total-count+student.getPriority(),student.getStudent()));
-                                break;
-                            }
-                        }
-                        while(true);
-                    }
+            PriorityQueue<StudentPriorityWrapper> temp = new PriorityQueue<>(Comparator.comparingInt(StudentPriorityWrapper::getPriority));
+            for(int i=0;i<studentPriorityQueue.size();i++) {
+                StudentPriorityWrapper student = studentPriorityQueue.remove();
+                PriorityQueue<RegistrationRequest> requests=memo.get(block.getId()).get(student.getStudent().getId());
+                if(requests==null||requests.isEmpty()){
+                    temp.add(student);
                 }
-                studentPriorityQueue=temp;
+                else {
+                    int total = block.getCourseOfferings().size();
+                    int count = 0;
+                    do{
+                        count++;
+                        RegistrationRequest request=requests.remove();
+                        if(request.getCourseOffering().getAvailableSeat()>0){
+                            Registration registration = new Registration();
+                            registration.setCourseOffering(request.getCourseOffering());
+                            registration.setStudent(student.getStudent());
+                            registrationService.save(registration);
+                            request.getCourseOffering().setAvailableSeat(request.getCourseOffering().getAvailableSeat()-1);
+                            temp.add(new StudentPriorityWrapper(total-count+student.getPriority(),student.getStudent()));
+                            break;
+                        }
+                    }
+                    while(true);
+                }
             }
+            studentPriorityQueue=temp;
         }
-
     }
 
     private Map<Integer,Map<Integer,PriorityQueue<RegistrationRequest>>> init(RegistrationEvent registrationEvent) {
