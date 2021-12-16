@@ -57,8 +57,8 @@ public class AcademicBlockController {
         academicBlock.setSemester(academicBlockDto.getSemester());
       return academicBlockService.save(academicBlock);
     }
-    @PutMapping(value = "add/course/{id}")
-    public ResponseEntity<?> addCourse(@PathVariable("id") int groupId, @RequestBody  int [] courses) {
+    @PutMapping( "add/course/{id}")
+    public ResponseEntity<?> addCourseoffering(@PathVariable("id") int groupId, @RequestBody  int [] courses) {
 
         return ResponseEntity.ok(academicBlockService.batchCourseAdd(groupId,courses));
     }
