@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/registrationevents")
+@RequestMapping("admin/registrationevents")
 public class RegistrationEventController {
 
     @Autowired

@@ -1,11 +1,17 @@
 package miu.edu.com.courseregistrationsystem.controller;
 
+import miu.edu.com.courseregistrationsystem.Security.JWTUtil;
 import miu.edu.com.courseregistrationsystem.domain.*;
+import miu.edu.com.courseregistrationsystem.dto.LoginDTO;
 import miu.edu.com.courseregistrationsystem.dto.UserRegistrationDTO;
 import miu.edu.com.courseregistrationsystem.service.implementation.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +21,11 @@ public class UserController {
     ModelMapper modelMapper;
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JWTUtil jwtUtil;
+
     @PostMapping("/signup/student")
     public ResponseEntity<?> signupStudent(@RequestBody UserRegistrationDTO registrationDTO){
             registrationDTO.setRole(Role.STUDENT);
@@ -55,4 +66,21 @@ public class UserController {
 
 
     }
+    @PostMapping("/login")
+    public ResponseEntity<?> loginauth(@RequestBody LoginDTO loginDTO) throws Exception{
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(),loginDTO.getPassword()));
+
+        } catch (BadCredentialsException e){
+            throw new Exception("Incorrect username or password",e);
+        }
+        UserDetails userDetails=userService.loadUserByUsername(loginDTO.getEmail());
+        loginDTO.setPassword(null);
+        String jwt=jwtUtil.generateToken(userDetails);
+        loginDTO.setToken(jwt);
+        loginDTO.setRole(userDetails.getAuthorities().toString());
+        return ResponseEntity.ok(loginDTO);
+    }
+
+
 }

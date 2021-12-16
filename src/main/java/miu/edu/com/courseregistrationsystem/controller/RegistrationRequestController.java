@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/student/registration")
+@RequestMapping("/students/registration")
 public class RegistrationRequestController {
     @Autowired
     RegistrationService registrationService;

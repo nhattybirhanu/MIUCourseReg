@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/students")
+@RequestMapping(value = "/students/")
 public class StudentController {
     @Autowired
     StudentServiceImpl studentService;
-    @GetMapping("/all")
+    @GetMapping("all")
     public ResponseEntity<?> getAllStudent(){
         return ResponseEntity.ok(studentService.getAllStudent());
 
@@ -22,7 +22,7 @@ public class StudentController {
 
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> getStudent(@PathVariable("id") int id){
         return ResponseEntity.ok(studentService.findById(id));
 
