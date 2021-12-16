@@ -95,7 +95,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
         registrationGroup.ifPresentOrElse(r-> {
             Optional<Student> student = r.getStudent().stream().filter(s -> s.getId() == studentId).findAny();
             student.ifPresentOrElse(s -> {
-             //   r.removeStudent(groupId,studentId);
+//                r.removeStudent(groupId,studentId);
 
             }, () -> {
                         new IllegalArgumentException("The student is not exist in this Group");

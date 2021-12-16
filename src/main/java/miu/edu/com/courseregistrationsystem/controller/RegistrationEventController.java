@@ -29,17 +29,19 @@ public class RegistrationEventController {
 
     @PostMapping(value = "/create")
     public RegistrationEvent create(@RequestBody RegistrationEvent registrationEvent) {
-//        LocalDateTime start= DateAndCodeUtil.convertToDate(eventDto.getStartTime());
-//        LocalDateTime end= DateAndCodeUtil.convertToDate(eventDto.getEndTime());
-//        if (end.isBefore(start)){
-//            new DateTimeException("End time must be after start time");
-//        }
-//        RegistrationEvent registrationEvent=new RegistrationEvent();
-//            registrationEvent.setEndDateTime(end);
-//        registrationEvent.setEndDateTime(start);
-//        registrationEvent.setName(eventDto.getName());
-        registrationEvent.setStatus(registrationEvent.getStartDateTime().isAfter(LocalDateTime.now())?RegistrationStatus.PENDING:RegistrationStatus.CLOSED);
+        if(registrationEvent.getEndDateTime().isBefore(LocalDateTime.now())){
+            registrationEvent.setStatus((RegistrationStatus.CLOSED));
+        }else if((registrationEvent.getStartDateTime().isBefore(LocalDateTime.now()))&&(registrationEvent.getEndDateTime().isAfter(LocalDateTime.now()))){
+            registrationEvent.setStatus(RegistrationStatus.OPEN);
+        }else{
+            registrationEvent.setStatus(RegistrationStatus.PENDING);
+        }
+
         return registrationEventService.save(registrationEvent);
+
+
+//        registrationEvent.setStatus(registrationEvent.getStartDateTime().isAfter(LocalDateTime.now())?RegistrationStatus.PENDING:RegistrationStatus.CLOSED);
+//        return registrationEventService.save(registrationEvent);
     }
 
     @GetMapping(value = "/all")

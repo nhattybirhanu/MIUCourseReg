@@ -13,10 +13,10 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseRepository courseRepository;
-//    @Override
-//    public Course getCourse(Integer id) {
-//        return courseRepository.getById(id);
-//    }
+    @Override
+    public Course getCourse(Integer id) {
+        return courseRepository.getOne(id);
+    }
 
     @Override
     public Course save(Course course) {

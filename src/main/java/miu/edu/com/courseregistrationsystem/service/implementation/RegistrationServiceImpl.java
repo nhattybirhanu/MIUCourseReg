@@ -24,11 +24,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     RegistrationGroupRepository registrationGroupRepository;
     @Autowired
     RegistrationRequestRepository registrationRequestRepository;
-//
-//    @Override
-//    public Registration getRegistration(Integer id) {
-//        return registrationRepository.getById(id);
-//    }
+
 
     @Override
     public Registration save(Registration registration) {

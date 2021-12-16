@@ -1,7 +1,7 @@
 package miu.edu.com.courseregistrationsystem.service.implementation;
 
 import miu.edu.com.courseregistrationsystem.domain.*;
-import miu.edu.com.courseregistrationsystem.service.Registerer;
+import miu.edu.com.courseregistrationsystem.service.Register;
 import miu.edu.com.courseregistrationsystem.service.RegistrationEventService;
 import miu.edu.com.courseregistrationsystem.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class RegistererImpl implements Registerer {
+public class RegistererImpl implements Register {
     private RegistrationService registrationService;
     private RegistrationEventService registrationEventService;
 
@@ -27,7 +26,7 @@ public class RegistererImpl implements Registerer {
     public void process(int eventId) {
         RegistrationEvent registrationEvent = registrationEventService.getRegistrationEvent(eventId);
 
-        //map<blockId,map<studentId,List<course>>>
+
         Map<Integer,Map<Integer,PriorityQueue<RegistrationRequest>>> memo = init(registrationEvent);
         PriorityQueue<StudentPriorityWrapper> studentPriorityQueue = new PriorityQueue<>(Comparator.comparingInt(StudentPriorityWrapper::getPriority));
         Set<AcademicBlock> allBlocks = new HashSet<>();

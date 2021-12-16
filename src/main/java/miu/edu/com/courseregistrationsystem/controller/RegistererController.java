@@ -6,12 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/process")
+@RequestMapping(value = "/processregistration-events")
 public class RegistererController {
     @Autowired
     RegistererImpl registerer;
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public void process(@PathVariable  int id){
         registerer.process(id);
     }
