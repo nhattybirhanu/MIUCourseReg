@@ -51,10 +51,6 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
         return facultyRepository.findAll();
     }
 
-    @Override
-    public Student findById(int id) {
-        return null;
-    }
 
     @Override
     public Student save(Student student) {
@@ -78,15 +74,12 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
     }
 
     @Override
-<<<<<<< HEAD
     public Student findById(int id) {
-        return studentRepository.findById(id).orElseThrow();
-=======
+        return studentRepository.findById(id).orElseThrow();}
     public Student studentFindById(int id) {
         Optional<Student>
                 optional= studentRepository.findById(id);
         return optional.orElseThrow();
->>>>>>> 59446f549fa922595c58caf2a3dba2231137ceb3
     }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
