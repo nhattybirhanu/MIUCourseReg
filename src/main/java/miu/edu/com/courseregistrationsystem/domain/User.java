@@ -24,7 +24,7 @@ public abstract class User {
     @Column(unique = true,nullable = false)
     private String email;
     @Column(name = "password",nullable = false)
-    @JsonIgnore
+    @JsonIgnore()
     private String password;
     Role role;
 

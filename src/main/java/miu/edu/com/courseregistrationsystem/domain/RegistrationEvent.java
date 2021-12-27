@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDateTime;
@@ -24,7 +26,6 @@ public class RegistrationEvent {
     @GeneratedValue
     private int id;
     @Column(nullable = false)
-
     private String name;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

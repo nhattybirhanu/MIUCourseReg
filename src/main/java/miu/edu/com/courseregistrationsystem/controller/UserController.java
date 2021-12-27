@@ -81,6 +81,12 @@ public class UserController {
         loginDTO.setRole(userDetails.getAuthorities().toString());
         return ResponseEntity.ok(loginDTO);
     }
+    @GetMapping("/email")
+    public String emailtest(){
+        Student student=userService.findById(2);
+       /// emailService.sendSignUpConfirmation(student);
+        return "Email is sent";
+    }
 
 
 }

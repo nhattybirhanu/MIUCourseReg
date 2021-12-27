@@ -63,7 +63,7 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
 
     @Override
     public Student findById(int id) {
-        return null;
+        return studentRepository.findById(id).orElseThrow();
     }
 
     @Override
