@@ -24,8 +24,7 @@ public class CourseOffering {
     private int totalSeat;
     private  int availableSeat;
 
-    @OneToMany
-    @JoinColumn(name = "registration_request_id")
+    @OneToMany(mappedBy ="courseOffering" )
 
     private List<RegistrationRequest> registrationRequests = new ArrayList<>();
 

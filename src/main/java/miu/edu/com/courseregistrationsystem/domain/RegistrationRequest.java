@@ -24,6 +24,8 @@ public class RegistrationRequest {
     private Student student;
     boolean accepted;
     @ManyToOne()
+    @JoinColumn(name = "course_offering_id")
+    @JsonIgnore
     private CourseOffering courseOffering;
 
     public RegistrationRequest(Student student, boolean accepted, CourseOffering courseOffering) {

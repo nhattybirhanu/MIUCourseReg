@@ -2,6 +2,7 @@ package miu.edu.com.courseregistrationsystem.service.implementation;
 
 import miu.edu.com.courseregistrationsystem.domain.*;
 import miu.edu.com.courseregistrationsystem.repository.AdminRepository;
+import miu.edu.com.courseregistrationsystem.repository.FacultyRepository;
 import miu.edu.com.courseregistrationsystem.repository.StudentRepository;
 import miu.edu.com.courseregistrationsystem.repository.UserRepository;
 import miu.edu.com.courseregistrationsystem.service.AdminService;
@@ -14,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.*;
 
 @Service
@@ -24,11 +27,18 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
     AdminRepository adminRepository;
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    FacultyRepository facultyRepository;
     @Override
     public Admin save(Admin admin) {
         return userRepository.save(admin);
     }
+
+    @Override
+    public List<Admin> all() {
+        return null;
+    }
+
 
     @Override
     public Faculty save(Faculty faculty) {
@@ -38,6 +48,11 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
 
     @Override
     public List<Faculty> getAllFaculty() {
+        return facultyRepository.findAll();
+    }
+
+    @Override
+    public Student findById(int id) {
         return null;
     }
 
@@ -53,19 +68,26 @@ public class UserServiceImpl implements StudentService, FacultyService, AdminSer
 
     @Override
     public List<Student> getAllStudent() {
-        return null;
+        return studentRepository.findAll();
     }
 
     @Override
     public void delete(Integer id) {
 
+
     }
 
     @Override
+<<<<<<< HEAD
     public Student findById(int id) {
         return studentRepository.findById(id).orElseThrow();
+=======
+    public Student studentFindById(int id) {
+        Optional<Student>
+                optional= studentRepository.findById(id);
+        return optional.orElseThrow();
+>>>>>>> 59446f549fa922595c58caf2a3dba2231137ceb3
     }
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(email).orElseThrow();

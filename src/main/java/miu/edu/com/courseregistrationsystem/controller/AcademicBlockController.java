@@ -25,10 +25,6 @@ public class AcademicBlockController {
        return academicBlockService.allBlocks();
     }
 
-//    @PostMapping(value = "/courseOffering/add")
-//    public void addCourseOffering(CourseOffering courseOffering) {
-//        academicBlockService.addCourseOffering(courseOffering);
-//    }
 
     @RequestMapping(value = "/courseoffering/delete/{id}")
     public void removeCourseOffering(@PathVariable Integer id) {

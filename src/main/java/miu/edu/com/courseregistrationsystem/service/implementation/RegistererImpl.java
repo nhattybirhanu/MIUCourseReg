@@ -1,7 +1,7 @@
 package miu.edu.com.courseregistrationsystem.service.implementation;
 
 import miu.edu.com.courseregistrationsystem.domain.*;
-import miu.edu.com.courseregistrationsystem.service.Registerer;
+import miu.edu.com.courseregistrationsystem.service.Register;
 import miu.edu.com.courseregistrationsystem.service.RegistrationEventService;
 import miu.edu.com.courseregistrationsystem.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class RegistererImpl implements Registerer {
+public class RegistererImpl implements Register {
     private RegistrationService registrationService;
     private RegistrationEventService registrationEventService;
 
@@ -27,7 +26,7 @@ public class RegistererImpl implements Registerer {
     public void process(int eventId) {
         RegistrationEvent registrationEvent = registrationEventService.getRegistrationEvent(eventId);
 
-        //map<blockId,map<studentId,List<course>>>
+
         Map<Integer,Map<Integer,PriorityQueue<RegistrationRequest>>> memo = init(registrationEvent);
         PriorityQueue<StudentPriorityWrapper> studentPriorityQueue = new PriorityQueue<>(Comparator.comparingInt(StudentPriorityWrapper::getPriority));
         Set<AcademicBlock> allBlocks = new HashSet<>();
@@ -41,37 +40,34 @@ public class RegistererImpl implements Registerer {
         }
 
         for(AcademicBlock block: allBlocks){
-            while(studentPriorityQueue!=null){
-                PriorityQueue<StudentPriorityWrapper> temp = new PriorityQueue<>();
-                while (!studentPriorityQueue.isEmpty()){
-                    StudentPriorityWrapper student = studentPriorityQueue.remove();
-                    PriorityQueue<RegistrationRequest> requests=memo.get(block.getId()).get(student.getStudent().getId());
-                    if(requests==null){
-                        temp.add(student);
-                    }
-                    else {
-                        int total = block.getCourseOfferings().size();
-                        int count = 0;
-                        do{
-                            count++;
-                            RegistrationRequest request=requests.remove();
-                            if(request.getCourseOffering().getAvailableSeat()>0){
-                                Registration registration = new Registration();
-                                registration.setCourseOffering(request.getCourseOffering());
-                                registration.setStudent(student.getStudent());
-                                registrationService.save(registration);
-                                request.getCourseOffering().setAvailableSeat(request.getCourseOffering().getAvailableSeat()-1);
-                                temp.add(new StudentPriorityWrapper(total-count+student.getPriority(),student.getStudent()));
-                                break;
-                            }
-                        }
-                        while(true);
-                    }
+            PriorityQueue<StudentPriorityWrapper> temp = new PriorityQueue<>(Comparator.comparingInt(StudentPriorityWrapper::getPriority));
+            for(int i=0;i<studentPriorityQueue.size();i++) {
+                StudentPriorityWrapper student = studentPriorityQueue.remove();
+                PriorityQueue<RegistrationRequest> requests=memo.get(block.getId()).get(student.getStudent().getId());
+                if(requests==null||requests.isEmpty()){
+                    temp.add(student);
                 }
-                studentPriorityQueue=temp;
+                else {
+                    int total = block.getCourseOfferings().size();
+                    int count = 0;
+                    do{
+                        count++;
+                        RegistrationRequest request=requests.remove();
+                        if(request.getCourseOffering().getAvailableSeat()>0){
+                            Registration registration = new Registration();
+                            registration.setCourseOffering(request.getCourseOffering());
+                            registration.setStudent(student.getStudent());
+                            registrationService.save(registration);
+                            request.getCourseOffering().setAvailableSeat(request.getCourseOffering().getAvailableSeat()-1);
+                            temp.add(new StudentPriorityWrapper(total-count+student.getPriority(),student.getStudent()));
+                            break;
+                        }
+                    }
+                    while(true);
+                }
             }
+            studentPriorityQueue=temp;
         }
-
     }
 
     private Map<Integer,Map<Integer,PriorityQueue<RegistrationRequest>>> init(RegistrationEvent registrationEvent) {

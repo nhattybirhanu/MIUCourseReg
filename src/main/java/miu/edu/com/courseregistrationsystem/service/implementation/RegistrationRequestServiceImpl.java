@@ -12,10 +12,10 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     @Autowired
     RegistrationRequestRepository registrationRequestRepository;
 
-//    @Override
-//    public RegistrationRequest getById(Integer id) {
-//        return registrationRequestRepository.getOne(id);
-//    }
+    @Override
+    public RegistrationRequest getById(Integer id) {
+        return registrationRequestRepository.getOne(id);
+    }
 
 //    @Override
 //    public RegistrationRequest save(RegistrationRequest registrationRequest) {

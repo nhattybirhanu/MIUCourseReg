@@ -29,7 +29,6 @@ public class RegistrationEvent {
     private String name;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @FutureOrPresent
     private LocalDateTime startDateTime;
     @Future
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
