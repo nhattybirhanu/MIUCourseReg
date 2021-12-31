@@ -10,6 +10,7 @@ C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\dto\AcademicBlockDto.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\dto\EventDto.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\repository\AddressRepository.java
+C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\Register.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\repository\RegistrationRequestRepository.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\StudentRegistrationSystemApplication.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\domain\RegistrationStatus.java
@@ -26,12 +27,12 @@ C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\domain\Course.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\Security\JwtRequestFilter.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\dto\RequestedCourseDTO.java
+C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\controller\RegistererController.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\controller\RegistrationRequestController.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\StudentService.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\config\SpringFoxConfig.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\repository\CourseRepository.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\implementation\RegistrationServiceImpl.java
-C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\Registerer.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\Security\config\SecurityConfig.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\controller\AcademicBlockController.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\RegistrationRequestService.java
@@ -45,6 +46,7 @@ C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\domain\CourseOffering.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\repository\StudentRepository.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\RegistrationService.java
+C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\controller\FacultyController.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\implementation\UserServiceImpl.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\repository\AdminRepository.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\Security\JWTUtil.java
@@ -74,6 +76,7 @@ C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\implementation\RegistrationGroupServiceImpl.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\dto\LoginDTO.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\dto\RegistrationRequestDTO.java
+C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\controller\AdminController.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\repository\UserRepository.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\dto\UserRegistrationDTO.java
 C:\Users\Jak\Desktop\Class\SpringProjects\MIUCourseReg\src\main\java\miu\edu\com\courseregistrationsystem\service\FacultyService.java
