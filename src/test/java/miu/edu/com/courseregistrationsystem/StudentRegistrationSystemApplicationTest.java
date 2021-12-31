@@ -12,6 +12,9 @@ class StudentRegistrationSystemApplicationTest {
 
     public void  test_1(){
     log.info("Testing phase");
+    log.info("Testing phase 2");
+
     assertEquals(true,true);
+
 }
 }
