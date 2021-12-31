@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StudentRegistrationSystemApplicationTest {
 @Test
 
-    poid  test_1(){
+    public void  test_1(){
     log.info("Testing phase");
     log.info("Testing phase 2");
 
